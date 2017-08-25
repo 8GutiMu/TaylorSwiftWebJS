@@ -17,16 +17,12 @@ var getJSON = function (url) {
 }
 
 
-
-
 getJSON("https://itunes.apple.com/search?term="+keyValue)
     .then(function (resultado) {
         return resultado;
     }).then(function(resultado){
        var tracks = (resultado.results.map(function(track){
-    	console.log(track)
-           renderSong(track)
-           
+           renderSong(track)           
     }));
  		return Promise.all(tracks) 
     })
@@ -44,25 +40,25 @@ var crearUnElemento = function (elementoACrear, propiedades) {
     return elemento
 }
 
-var renderSong = function (track) {
+var filter = function(track){
+    trackIdSingle.push(track.trackName)
     
     for (i=0 ; i<trackIdSingle.length; i++){
-        console.log()
+        console.log(trackIdSingle)
+        console.log(track.trackName)
        if(track.trackName == trackIdSingle[i]){
            console.log("se repite")
        }
         else{
-            console.log("Ño")
+            renderSong(track)
         }
         
     }
-     
-    trackIdSingle.push(track.trackId)
-    
-    
-    
-    
-    
+}
+
+
+var renderSong = function (track) {
+ 
     contador ++;
     
     
@@ -132,22 +128,22 @@ var renderSong = function (track) {
     
     var container = document.getElementById("music");
     
-//    container.appendChild(hr)
-//    container.append(row)
-//    
-//    row.appendChild(col1)
-//    row.appendChild(col1Img)
-//    row.appendChild(col10)
-//    row.appendChild(col1End)
-//    
-//    col1.appendChild(spanContador)
-//    col1Img.appendChild(img)
-//    
-//    col10.appendChild(name)
-//    col10.appendChild(collection)
-// 
-//    
-//    col1End.appendChild(reproductions)
+    container.appendChild(hr)
+    container.append(row)
+    
+    row.appendChild(col1)
+    row.appendChild(col1Img)
+    row.appendChild(col10)
+    row.appendChild(col1End)
+    
+    col1.appendChild(spanContador)
+    col1Img.appendChild(img)
+    
+    col10.appendChild(name)
+    col10.appendChild(collection)
+ 
+    
+    col1End.appendChild(reproductions)
   
 }
 

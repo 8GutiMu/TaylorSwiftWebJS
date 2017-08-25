@@ -21,11 +21,26 @@ getJSON("https://itunes.apple.com/search?term="+keyValue)
     .then(function (resultado) {
         return resultado;
     }).then(function(resultado){
+  
        var tracks = (resultado.results.map(function(track){
+
            renderSong(track)           
     }));
  		return Promise.all(tracks) 
+    }).then(function(){
+    getJSON("https://itunes.apple.com/search?term=charts")
+    .then(function(res){
+    var chart = (res.results.map(function(chart){
+    
+         return(chart) 
+            
     })
+    
+)}).then(function(chart){
+         for(var i=0 ; i <6 ; i++){
+             renderCharts(chart)
+    }
+    })})
     
     
 var contador =0;
@@ -92,7 +107,7 @@ var renderSong = function (track) {
     })
     
     var col10 = crearUnElemento("div",{
-        className: "col col-lg-9 col-md-9",
+        className: "col col-lg-7 col-md-7",
         innerText:"",
         src: ""
     })
@@ -110,7 +125,7 @@ var renderSong = function (track) {
     
 
     var col1End = crearUnElemento("div", {
-        className: "col col-lg-1 col-md-1",
+        className: "col col-lg-3 col-md-3",
         innerText: "",
         src: ""
     })
@@ -148,3 +163,28 @@ var renderSong = function (track) {
 }
 
 
+var renderCharts = function(chart){
+      var col6 = crearUnElemento("div", {
+        className: "col col-lg-6 col-md-6",
+        innerText: "",
+        src: ""
+    })
+      
+            var img = crearUnElemento("img", {
+        className: "col col-lg-6 col-md-6",
+        innerText: "",
+        src: chart.artworkUrl100
+    })
+      
+            var name = crearUnElemento("p", {
+        className: "",
+        innerText: chart.trackName,
+        src: ""
+    })
+      
+    var container = document.getElementById("charts");
+    
+    container.appendChild(col6)
+    col6.appendChild(img)
+    col6.appendChild(name)
+}

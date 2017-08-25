@@ -21,11 +21,20 @@ getJSON("https://itunes.apple.com/search?term="+keyValue)
     .then(function (resultado) {
         return resultado;
     }).then(function(resultado){
+  
        var tracks = (resultado.results.map(function(track){
+            
+           console.log(track)
            renderSong(track)           
     }));
  		return Promise.all(tracks) 
+    }).then(function(){
+    getJSON("https://itunes.apple.com/search?term=charts")
+    .then(function(res){
+        console.log(res)
     })
+    
+})
     
     
 var contador =0;
@@ -92,7 +101,7 @@ var renderSong = function (track) {
     })
     
     var col10 = crearUnElemento("div",{
-        className: "col col-lg-9 col-md-9",
+        className: "col col-lg-7 col-md-7",
         innerText:"",
         src: ""
     })
@@ -110,7 +119,7 @@ var renderSong = function (track) {
     
 
     var col1End = crearUnElemento("div", {
-        className: "col col-lg-1 col-md-1",
+        className: "col col-lg-3 col-md-3",
         innerText: "",
         src: ""
     })

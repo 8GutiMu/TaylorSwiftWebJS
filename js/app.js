@@ -23,18 +23,24 @@ getJSON("https://itunes.apple.com/search?term="+keyValue)
     }).then(function(resultado){
   
        var tracks = (resultado.results.map(function(track){
-            
-           console.log(track)
+
            renderSong(track)           
     }));
  		return Promise.all(tracks) 
     }).then(function(){
     getJSON("https://itunes.apple.com/search?term=charts")
     .then(function(res){
-        console.log(res)
+    var chart = (res.results.map(function(chart){
+    
+         return(chart) 
+            
     })
     
-})
+)}).then(function(chart){
+         for(var i=0 ; i <6 ; i++){
+             renderCharts(chart)
+    }
+    })})
     
     
 var contador =0;
@@ -157,3 +163,28 @@ var renderSong = function (track) {
 }
 
 
+var renderCharts = function(chart){
+      var col6 = crearUnElemento("div", {
+        className: "col col-lg-6 col-md-6",
+        innerText: "",
+        src: ""
+    })
+      
+            var img = crearUnElemento("img", {
+        className: "col col-lg-6 col-md-6",
+        innerText: "",
+        src: chart.artworkUrl100
+    })
+      
+            var name = crearUnElemento("p", {
+        className: "",
+        innerText: chart.trackName,
+        src: ""
+    })
+      
+    var container = document.getElementById("charts");
+    
+    container.appendChild(col6)
+    col6.appendChild(img)
+    col6.appendChild(name)
+}
